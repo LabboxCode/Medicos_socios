@@ -1,0 +1,49 @@
+name: 📊 Dashboard Semanal Labbox
+
+on:
+  # Corre cada lunes a las 8am hora Ciudad de México (UTC-6 = 14:00 UTC)
+  schedule:
+    - cron: '0 14 * * 1'
+
+  # También permite correrlo manualmente desde GitHub
+  workflow_dispatch:
+    inputs:
+      force_week:
+        description: 'Semana a procesar (opcional, ej: 2026-05-18 para lunes de esa semana)'
+        required: false
+        default: ''
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # necesario para hacer commit del HTML actualizado
+
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: 🔄 Run dashboard update
+        env:
+          MONDAY_API_KEY: ${{ secrets.MONDAY_API_KEY }}
+          FORCE_WEEK: ${{ github.event.inputs.force_week }}
+        run: python update_dashboard.py
+
+      - name: 📝 Commit & push if changed
+        run: |
+          git config --global user.name  "Dashboard Bot"
+          git config --global user.email "bot@labbox.mx"
+          git add index.html
+          # Solo hace commit si hubo cambios
+          git diff --staged --quiet || git commit -m "📊 Actualización semanal $(date '+%Y-%m-%d')"
+          git push
