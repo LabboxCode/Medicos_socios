@@ -3128,7 +3128,7 @@ new Chart(document.getElementById('chartDoctors'), {
   }
   function fixCharts(){
     if(typeof Chart==='undefined'){setTimeout(fixCharts,200);return;}
-    var m26DATA=[168, 140, 173, 121, 40, 0, 0, 0, 0, 0, 0, 0]; var m25DATA=[43, 60, 89, 69, 104, 83, 92, 105, 91, 94, 85, 92]; var m24DATA=[4, 47, 32, 47, 47, 40, 61, 60, 34, 79, 60, 51]; var m23DATA=[0, 2, 2, 3, 5, 24, 42, 59, 44, 52, 38, 24]; var r26DATA=[253300, 198050, 224400, 172500, 88150, 0, 0, 0, 0, 0, 0, 0];
+    var m26DATA=[168, 140, 173, 121, 44, 0, 0, 0, 0, 0, 0, 0]; var m25DATA=[43, 60, 89, 69, 104, 83, 92, 105, 91, 94, 85, 92]; var m24DATA=[4, 47, 32, 47, 47, 40, 61, 60, 34, 79, 60, 51]; var m23DATA=[0, 2, 2, 3, 5, 24, 42, 59, 44, 52, 38, 24]; var r26DATA=[253300, 198050, 224400, 172500, 71050, 0, 0, 0, 0, 0, 0, 0];
     var active=m26DATA.map(function(v,i){return v>0?i:-1;}).filter(function(i){return i>=0;});
     var labels=active.map(function(i){return MN[i];});
     var d26=active.map(function(i){return m26DATA[i];}); var d26r=active.map(function(i){return r26DATA[i];});
