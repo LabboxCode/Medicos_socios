@@ -194,7 +194,6 @@
   <div class="nav-tab active" onclick="showPage('resumen')">📊 Resumen General</div>
   <div class="nav-tab" onclick="showPage('socios')">👨‍⚕️ Médicos Socios</div>
   <div class="nav-tab" onclick="showPage('recetario')">📋 Recetarios</div>
-  <div class="nav-tab" onclick="showPage('riesgo')">📊 Actividad</div>
     <div class="nav-tab" onclick="showPage('beneficio')">🎁 Beneficio Médico</div>
 </div>
 
@@ -256,7 +255,7 @@
         <span class="stat-value" id="stat-activos26">0</span>
         <span style="font-size:12px;color:#64748b">en 2026</span>
       </div>
-      <div style="font-size:12px;color:#64748b" id="stat-activos-sub">Han enviado ≥1 paciente · 120 en red</div>
+      <div style="font-size:12px;color:#64748b" id="stat-activos-sub">Han enviado ≥1 paciente</div>
     </div>
 
     <!-- Mes más activo 2026 -->
@@ -1609,555 +1608,6 @@
     </div>
   </div>
 </div>
-<div id="page-riesgo" class="page">
-  <p style="color:#94a3b8;font-size:13px;margin-bottom:20px;">Comparativa de actividad <strong style="color:#e2e8f0">2025 vs 2026</strong> · Cadencia = promedio días entre pacientes · Alerta cuando días sin paciente superan cadencia × 1.5. Período: <strong style="color:#e2e8f0">Ene–May 2025 vs 2026</strong>.</p>
-  <div class="risk-section">
-    <div class="risk-section-header" onclick="toggleRiskSection('positivo')">
-      <div class="risk-section-title"><span style="font-size:18px">✅</span><span>Recuperación y crecimiento</span><span class="risk-section-count" style="background:#14532d55;color:#86efac;border:1px solid #166534">19</span></div>
-      <span class="risk-section-chevron open" id="rchev-positivo">▶</span>
-    </div>
-    <div id="rbody-positivo" style="">
-  <div class="risk-row" style="border-top:none;padding:5px 18px;background:#0a0318">
-    <div class="risk-hdr" style="text-align:left">Médico</div>
-    <div class="risk-hdr">Estado</div>
-    <div class="risk-hdr">Tendencia</div>
-    <div class="risk-hdr">2025 vs 2026</div>
-    <div class="risk-hdr">Cambio</div>
-    <div class="risk-hdr">Primer pax</div>
-    <div class="risk-hdr">Último pax</div>
-    <div class="risk-hdr">Cadencia</div>
-    <div class="risk-hdr">Alerta</div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Alejandra Perales</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 25 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:13px;background:#3b1572"></div><div class="risk-spark-bar" style="height:15px;background:#3b1572"></div><div class="risk-spark-bar" style="height:4px;background:#3b1572"></div><div class="risk-spark-bar" style="height:13px;background:#22c55e"></div><div class="risk-spark-bar" style="height:11px;background:#22c55e"></div><div class="risk-spark-bar" style="height:9px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">16</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Sep 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">20/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/5d</span></div>
-    <div style="text-align:center"><span style="color:#22c55e;font-size:11px;font-weight:700">🟢 +2d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Mayra Reyes</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 4 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:6px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:6px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">11</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Nov 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">23/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/10d</span></div>
-    <div style="text-align:center"><span style="color:#22c55e;font-size:11px;font-weight:700">🟢 Al día</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Enrique Saldivar</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 1 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:7px;background:#22c55e"></div><div class="risk-spark-bar" style="height:15px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">6</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jun 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">13/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/61d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 6d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Mariana Ibanez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 2 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:6px;background:#3b1572"></div><div class="risk-spark-bar" style="height:6px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:6px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">6</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">05/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/22d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +78d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Edgar Ivan Jimenez Alarcon</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 1 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:15px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">6</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Dic 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">23/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/16d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +60d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Claudia Melendez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 11 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:4px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:13px;background:#3b1572"></div><div class="risk-spark-bar" style="height:9px;background:#3b1572"></div><div class="risk-spark-bar" style="height:18px;background:#22c55e"></div><div class="risk-spark-bar" style="height:4px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">5</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Sep 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">28/Feb/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/12d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +83d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Angelica Sireno</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 1 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">4</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Dic 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">27/Feb/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/18d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +84d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Guillermo Antonio Guerrero Gonzalez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 1 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">3</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jul 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">08/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/48d</span></div>
-    <div style="text-align:center"><span style="color:#22c55e;font-size:11px;font-weight:700">🟢 +14d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Ana Gonzalez Lugo</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 12 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:6px;background:#22c55e"></div><div class="risk-spark-bar" style="height:11px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">3</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jun 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">03/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/18d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +80d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Aline Navarrete</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 2 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">3</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Dic 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">24/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/23d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +59d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Ricardo Garcia</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 4 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:7px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:7px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">2</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">09/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/43d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 10d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Jose Daniel Garza Guerra</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 1 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#1e3a5f55;color:#3b82f6;border:1px solid #3b82f655;white-space:nowrap">🔄 Retomó actividad</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:22px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div><div class="risk-spark-bar" style="height:2px;background:#22c55e"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">2</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Dic 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">02/Feb/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/21d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +109d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Andrea Rosique Flota</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 21 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +260%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:6px;background:#3b1572"></div><div class="risk-spark-bar" style="height:14px;background:#3b1572"></div><div class="risk-spark-bar" style="height:8px;background:#3b1572"></div><div class="risk-spark-bar" style="height:3px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#f97316"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:16px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">5</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">18</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑300%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">23/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/14d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 10d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. David Israel Olivares Rosales</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 35 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +171%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:4px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:9px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:11px;background:#f97316"></div><div class="risk-spark-bar" style="height:7px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">7</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">19</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑186%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">18/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/13d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 1d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Cristobal Rodriguez Valero</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 8 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +150%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:11px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">2</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">5</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑150%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">May 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">03/Abr/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/53d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 45d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Paulina Herrera Rios</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 16 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +133%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:15px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:7px;background:#f97316"></div><div class="risk-spark-bar" style="height:15px;background:#f97316"></div><div class="risk-spark-bar" style="height:7px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">3</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">7</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑167%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">May 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">13/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/20d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 6d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Magaly Denise Pena Arriaga</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 10 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +100%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:11px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">3</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">6</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑100%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Mar 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">07/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/24d</span></div>
-    <div style="text-align:center"><span style="color:#22c55e;font-size:11px;font-weight:700">🟢 +15d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Jose Romarico Hernandez Pastrana</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 20 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +67%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:6px;background:#f97316"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">3</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">5</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑133%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Abr 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">20/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/13d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 5d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Cesar Cantu Yruegas</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 51 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">📈 +46%</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:8px;background:#3b1572"></div><div class="risk-spark-bar" style="height:14px;background:#3b1572"></div><div class="risk-spark-bar" style="height:14px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:14px;background:#f97316"></div><div class="risk-spark-bar" style="height:11px;background:#f97316"></div><div class="risk-spark-bar" style="height:6px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">13</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">19</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#22c55e">↑69%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Mar 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">22/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/7d</span></div>
-    <div style="text-align:center"><span style="color:#22c55e;font-size:11px;font-weight:700">🟢 Al día</span></div>
-  </div>
-    </div>
-  </div>
-  <div class="risk-section">
-    <div class="risk-section-header" onclick="toggleRiskSection('irregular')">
-      <div class="risk-section-title"><span style="font-size:18px">⚠️</span><span>Actividad irregular</span><span class="risk-section-count" style="background:#78350f55;color:#fcd34d;border:1px solid #92400e">5</span></div>
-      <span class="risk-section-chevron open" id="rchev-irregular">▶</span>
-    </div>
-    <div id="rbody-irregular" style="">
-  <div class="risk-row" style="border-top:none;padding:5px 18px;background:#0a0318">
-    <div class="risk-hdr" style="text-align:left">Médico</div>
-    <div class="risk-hdr">Estado</div>
-    <div class="risk-hdr">Tendencia</div>
-    <div class="risk-hdr">2025 vs 2026</div>
-    <div class="risk-hdr">Cambio</div>
-    <div class="risk-hdr">Primer pax</div>
-    <div class="risk-hdr">Último pax</div>
-    <div class="risk-hdr">Cadencia</div>
-    <div class="risk-hdr">Alerta</div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Lizbeth Machado</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 5 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#3b076455;color:#a855f7;border:1px solid #a855f755;white-space:nowrap">📊 Regular</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:22px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">2</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓50%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Oct 2024</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">15/Abr/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/80d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 33d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Gretelle Kuri</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 6 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#3b076455;color:#a855f7;border:1px solid #a855f755;white-space:nowrap">📊 Regular</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:22px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">2</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓50%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Feb 2024</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">18/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/65d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 61d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Cristina Aide Ramirez Colunga</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 4 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#3b076455;color:#a855f7;border:1px solid #a855f755;white-space:nowrap">📊 Regular</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:22px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jun 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">16/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/78d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 63d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Alberto David Martinez Rodriguez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 3 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#3b076455;color:#a855f7;border:1px solid #a855f755;white-space:nowrap">📊 Regular</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:22px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jul 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">04/Feb/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/54d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +107d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Mayela Gonzalez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 3 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#3b076455;color:#a855f7;border:1px solid #a855f755;white-space:nowrap">📊 Regular</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div><div class="risk-spark-bar" style="height:2px;background:#eab308"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#fcd34d">Nuevo</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Dic 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">04/Ene/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/8d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +138d</span></div>
-  </div>
-    </div>
-  </div>
-  <div class="risk-section">
-    <div class="risk-section-header" onclick="toggleRiskSection('declive')">
-      <div class="risk-section-title"><span style="font-size:18px">🟡</span><span>Declive moderado (25–50%)</span><span class="risk-section-count" style="background:#451a0355;color:#fcd34d;border:1px solid #78350f">4</span></div>
-      <span class="risk-section-chevron " id="rchev-declive">▶</span>
-    </div>
-    <div id="rbody-declive" style="display:none">
-  <div class="risk-row" style="border-top:none;padding:5px 18px;background:#0a0318">
-    <div class="risk-hdr" style="text-align:left">Médico</div>
-    <div class="risk-hdr">Estado</div>
-    <div class="risk-hdr">Tendencia</div>
-    <div class="risk-hdr">2025 vs 2026</div>
-    <div class="risk-hdr">Cambio</div>
-    <div class="risk-hdr">Primer pax</div>
-    <div class="risk-hdr">Último pax</div>
-    <div class="risk-hdr">Cadencia</div>
-    <div class="risk-hdr">Alerta</div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Adriana Tapia</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 189 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#43140755;color:#f97316;border:1px solid #f9731655;white-space:nowrap">📉 Declive</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:9px;background:#3b1572"></div><div class="risk-spark-bar" style="height:19px;background:#3b1572"></div><div class="risk-spark-bar" style="height:17px;background:#3b1572"></div><div class="risk-spark-bar" style="height:13px;background:#3b1572"></div><div class="risk-spark-bar" style="height:12px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:22px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:18px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:4px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">84</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">43</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓38%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">19/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/3d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:700;color:#f59e0b;background:#f59e0b18;padding:3px 7px;border-radius:4px;border:1px solid #f59e0b44;white-space:nowrap">⚠️ 4d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Albertina Yaneth Cuellar Fernandez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 144 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#43140755;color:#f97316;border:1px solid #f9731655;white-space:nowrap">📉 Declive</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:10px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:16px;background:#3b1572"></div><div class="risk-spark-bar" style="height:12px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:10px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:13px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:12px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">70</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">47</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓19%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">14/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/3d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +8d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Angelica Mireles Garcia</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 69 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#43140755;color:#f97316;border:1px solid #f9731655;white-space:nowrap">📉 Declive</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:20px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:18px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:13px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:22px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:9px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">28</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">21</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓18%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Jun 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">19/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/9d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 0d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Nereyda Gonzalez Benavides</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 35 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#43140755;color:#f97316;border:1px solid #f9731655;white-space:nowrap">📉 Declive</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:10px;background:#3b1572"></div><div class="risk-spark-bar" style="height:10px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:5px;background:#3b1572"></div><div class="risk-spark-bar" style="height:7px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:22px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:5px;background:#f59e0b"></div><div class="risk-spark-bar" style="height:2px;background:#f59e0b"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">20</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">15</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓15%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Ago 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">09/May/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/11d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:700;color:#f59e0b;background:#f59e0b18;padding:3px 7px;border-radius:4px;border:1px solid #f59e0b44;white-space:nowrap">⚠️ 12d</span></div>
-  </div>
-    </div>
-  </div>
-  <div class="risk-section">
-    <div class="risk-section-header" onclick="toggleRiskSection('caida')">
-      <div class="risk-section-title"><span style="font-size:18px">🟠</span><span>Caída fuerte (>50%)</span><span class="risk-section-count" style="background:#431407aa;color:#fdba74;border:1px solid #9a3412">2</span></div>
-      <span class="risk-section-chevron " id="rchev-caida">▶</span>
-    </div>
-    <div id="rbody-caida" style="display:none">
-  <div class="risk-row" style="border-top:none;padding:5px 18px;background:#0a0318">
-    <div class="risk-hdr" style="text-align:left">Médico</div>
-    <div class="risk-hdr">Estado</div>
-    <div class="risk-hdr">Tendencia</div>
-    <div class="risk-hdr">2025 vs 2026</div>
-    <div class="risk-hdr">Cambio</div>
-    <div class="risk-hdr">Primer pax</div>
-    <div class="risk-hdr">Último pax</div>
-    <div class="risk-hdr">Cadencia</div>
-    <div class="risk-hdr">Alerta</div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Pilar Cantu Garza</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 8 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#4a040455;color:#ef4444;border:1px solid #ef444455;white-space:nowrap">🔻 Caída fuerte</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">6</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓83%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Feb 2025</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">21/Feb/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/43d</span></div>
-    <div style="text-align:center"><span style="color:#ef4444;font-size:11px;font-weight:700">🔴 +90d</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Marco Antonio Roman Montalvo</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 4 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;background:#4a040455;color:#ef4444;border:1px solid #ef444455;white-space:nowrap">🔻 Caída fuerte</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:22px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div><div class="risk-spark-bar" style="height:2px;background:#f97316"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">3</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">1</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#ef4444">↓67%</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">Oct 2023</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">14/Mar/26</span></div>
-    <div style="text-align:center"><span style="font-size:12px;color:#94a3b8">c/99d</span></div>
-    <div style="text-align:center"><span style="font-size:11px;font-weight:600;color:#22c55e;background:#22c55e18;padding:3px 7px;border-radius:4px;border:1px solid #22c55e44;white-space:nowrap">✅ 65d</span></div>
-  </div>
-    </div>
-  </div>
-  <div class="risk-section">
-    <div class="risk-section-header" onclick="toggleRiskSection('inactivo')">
-      <div class="risk-section-title"><span style="font-size:18px">🔴</span><span>Sin actividad en 2026</span><span class="risk-section-count" style="background:#4a044e55;color:#f0abfc;border:1px solid #86198f">11</span></div>
-      <span class="risk-section-chevron " id="rchev-inactivo">▶</span>
-    </div>
-    <div id="rbody-inactivo" style="display:none">
-  <div class="risk-row" style="border-top:none;padding:5px 18px;background:#0a0318">
-    <div class="risk-hdr" style="text-align:left">Médico</div>
-    <div class="risk-hdr">Estado</div>
-    <div class="risk-hdr">Tendencia</div>
-    <div class="risk-hdr">2025 vs 2026</div>
-    <div class="risk-hdr">Cambio</div>
-    <div class="risk-hdr">Primer pax</div>
-    <div class="risk-hdr">Último pax</div>
-    <div class="risk-hdr">Cadencia</div>
-    <div class="risk-hdr">Alerta</div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Juan Francisco Lozano Ramirez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 11 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:6px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">1</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Karina Salazar Gonzalez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 10 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">9</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Gonzalo Pliego De Leon</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 10 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">1</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Alicia Maria Negrete Cruz</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 8 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">8</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Carlos A. Pulido Torres</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 5 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">1</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Luis Alberto Perez Arredondo</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 4 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:11px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Lic. Mariana Escamilla Herrera</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 3 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">2</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dr. Andres Murillo Mendoza</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 3 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">LN. Kennia Giuliana Hernandez Rodriguez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 3 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">1</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Andrea Alvarado Cardoso</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 2 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:22px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">0</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-  <div class="risk-row">
-    <div><div class="risk-row-name">Dra. Gabriela Morales Gonzalez</div><div style="font-size:10px;color:#475569;margin-top:2px">2025 total: 2 pax</div></div>
-    <div style="display:flex;align-items:center"><span style="font-size:10px;color:#475569">⛔ Inactivo (5 meses)</span></div>
-    <div><div class="risk-sparkline"><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#3b1572"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div><div class="risk-spark-bar" style="height:2px;background:#ef4444"></div></div></div>
-    <div style="text-align:center;font-size:12px"><span style="color:#64748b">2</span><span style="color:#334155;margin:0 3px">→</span><strong style="color:#e2e8f0">0</strong></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:700;color:#475569">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#64748b">—</span></div>
-    <div style="text-align:center"><span style="font-size:12px;font-weight:600;color:#94a3b8">—</span></div>
-    <div style="text-align:center"><span style="color:#334155;font-size:11px">—</span></div>
-    <div style="text-align:center"><span style="font-size:11px;color:#334155">—</span></div>
-  </div>
-    </div>
-  </div>
-</div>
 <div id="page-beneficio" class="page">
   <p style="color:#94a3b8;font-size:13px;margin-bottom:20px">Registro de citas bajo <strong style="color:#e484bd">Forma de Pago = Beneficio Médico</strong> en Diario 2023–2026. Solo registros Done.</p>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
@@ -3402,6 +2852,129 @@ function sortTable(col) {
 
   // Update sort icons
   document.querySelectorAll('[data-col] .sort-icon').forEach((el, i) => {
+    const c = parseInt(el.parentElement.dataset.col);
+    el.textContent = c === col ? (_sortAsc ? '↑' : '↓') : '⇅';
+  });
+}
+</script>
+
+<script>
+// ── CADENCIA CALCULATION ──────────────────────────────────────────────────────
+(function() {
+  const TODAY = new Date();
+  const MIN_PATIENTS = 10;
+
+  function parseMonthDate(key) {
+    if (/^\d{4}-\d{2}$/.test(key)) return new Date(key + '-01');
+    if (/^\d{2}$/.test(key)) return new Date('2026-' + key + '-01');
+    return null;
+  }
+
+  function getAllMonthlyData(row) {
+    const attrs = ['data-myr2023','data-myr2024','data-myr2025','data-myr2026','data-monthly'];
+    const combined = {};
+    for (const attr of attrs) {
+      const raw = row.getAttribute(attr);
+      if (!raw) continue;
+      let obj;
+      try { obj = JSON.parse(raw); } catch(e) { continue; }
+      for (const [k, v] of Object.entries(obj)) {
+        if (k === 'all') continue;
+        const d = parseMonthDate(k);
+        if (!d) continue;
+        const key = d.toISOString().slice(0,7);
+        if (!combined[key]) combined[key] = 0;
+        combined[key] += (v.total || 0);
+      }
+    }
+    return combined;
+  }
+
+  function computeCadencia(row) {
+    const monthly = getAllMonthlyData(row);
+    const activeMonths = Object.entries(monthly)
+      .filter(([,v]) => v > 0)
+      .map(([k]) => new Date(k + '-01'))
+      .sort((a,b) => a - b);
+    const totalPatients = Object.values(monthly).reduce((s,v) => s+v, 0);
+
+    if (totalPatients < MIN_PATIENTS || activeMonths.length < 2) {
+      return { label: 'Sin ritmo', days: null, alert: false, total: totalPatients };
+    }
+
+    const spanDays = (activeMonths[activeMonths.length-1] - activeMonths[0]) / 86400000;
+    const cadDays = Math.round(spanDays / totalPatients);
+
+    const ldStr = row.getAttribute('data-ld2026') || row.getAttribute('data-ld2025') || '';
+    let daysSinceLast = null;
+    if (ldStr && /\d{4}-\d{2}-\d{2}/.test(ldStr)) {
+      daysSinceLast = Math.round((TODAY - new Date(ldStr)) / 86400000);
+    }
+
+    const alert = daysSinceLast !== null && daysSinceLast > cadDays * 1.5;
+    return { label: cadDays + 'd/pax', days: cadDays, alert, daysSinceLast, total: totalPatients };
+  }
+
+  function cadenciaHtml(c) {
+    if (c.total < MIN_PATIENTS) {
+      return '<span style="font-size:11px;color:#475569">⬜ Sin ritmo</span>';
+    }
+    const color = c.alert ? '#ef4444' : '#22c55e';
+    const icon  = c.alert ? '⚠️' : '✅';
+    let html = '<span style="font-size:12px;font-weight:700;color:' + color + '">' + icon + ' ' + c.label + '</span>';
+    if (c.daysSinceLast !== null) {
+      const sc = c.alert ? '#f87171' : '#64748b';
+      html += '<div style="font-size:10px;color:' + sc + ';margin-top:2px">' + c.daysSinceLast + 'd sin paciente</div>';
+    }
+    return html;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('#doctorTableBody tr.doctor-row').forEach(row => {
+      const tds = row.querySelectorAll('td');
+      if (tds.length < 2) return;
+      const c = computeCadencia(row);
+      row.dataset.cadDays  = c.days !== null ? c.days : 9999;
+      row.dataset.cadAlert = c.alert ? '1' : '0';
+      tds[1].innerHTML = '<div style="text-align:center">' + cadenciaHtml(c) + '</div>';
+    });
+  });
+})();
+
+// ── SORT TABLE ────────────────────────────────────────────────────────────────
+let _sortCol = -1, _sortAsc = true;
+function sortTable(col) {
+  const tbody = document.getElementById('doctorTableBody');
+  if (!tbody) return;
+  if (_sortCol === col) _sortAsc = !_sortAsc;
+  else { _sortCol = col; _sortAsc = true; }
+
+  const rows = Array.from(tbody.querySelectorAll('tr.doctor-row'));
+  rows.sort((a, b) => {
+    let va, vb;
+    if (col === 1) {
+      va = parseFloat(a.dataset.cadDays || 9999);
+      vb = parseFloat(b.dataset.cadDays || 9999);
+    } else {
+      const tda = a.querySelectorAll('td')[col];
+      const tdb = b.querySelectorAll('td')[col];
+      va = tda ? tda.textContent.trim().replace(/[$,—\-]/g,'') : '';
+      vb = tdb ? tdb.textContent.trim().replace(/[$,—\-]/g,'') : '';
+      const na = parseFloat(va), nb = parseFloat(vb);
+      const aBlank = !va || isNaN(na);
+      const bBlank = !vb || isNaN(nb);
+      if (aBlank && bBlank) return 0;
+      if (aBlank) return 1;
+      if (bBlank) return -1;
+      if (!isNaN(na) && !isNaN(nb)) { va = na; vb = nb; }
+    }
+    if (va < vb) return _sortAsc ? -1 : 1;
+    if (va > vb) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+
+  document.querySelectorAll('[data-col] .sort-icon').forEach(el => {
     const c = parseInt(el.parentElement.dataset.col);
     el.textContent = c === col ? (_sortAsc ? '↑' : '↓') : '⇅';
   });
