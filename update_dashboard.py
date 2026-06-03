@@ -9,6 +9,10 @@ Lógica: nunca baja números. Solo actualiza si hay algo nuevo o más reciente.
 import os, re, json, requests
 from datetime import date
 from collections import defaultdict
+import unicodedata
+
+def normalize_name(s):
+    return unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode("ascii").lower().strip()
 
 # ── Config ────────────────────────────────────────────────────────────────────
 API_KEY      = os.environ["MONDAY_API_KEY"]
@@ -126,7 +130,7 @@ def get_diario_items(board_id: int, year: int) -> list[dict]:
             if not linked:
                 continue
 
-            doctor_name = linked[0]["name"].strip().lower()
+            doctor_name = normalize_name(linked[0]["name"])
 
             cv      = parse_cv(item)
             date_s  = cv.get("date", "")
