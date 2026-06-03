@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
 Labbox Dashboard — Actualizador diario
-Usa linked_items para ligar cada paciente del Diario a su médico en Plan Doctores.
+Lógica: nunca baja números. Solo actualiza si hay algo nuevo o más reciente.
+- data-ld2026/ld2025: solo si la fecha nueva es más reciente
+- data-monthly/myr2026/etc: merge aditivo por mes (no reemplaza)
 """
 
 import os, re, json, requests
-from datetime import date, datetime, timedelta, timezone
+from datetime import date
 from collections import defaultdict
 
-# ── Config ─────────────────────────────────────────────────────────────────────
+# ── Config ────────────────────────────────────────────────────────────────────
 API_KEY      = os.environ["MONDAY_API_KEY"]
 BOARD_2023   = 1587343035
 BOARD_2024   = 5691055183
@@ -23,7 +25,7 @@ MN    = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'
 MN_ES = {m: i+1 for i, m in enumerate(MN)}
 NON_SOCIO_SOURCES = {'ventas', 'paciente', ''}
 
-# ── Helpers ────────────────────────────────────────────────────────────────────
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 def gql(query: str) -> dict:
     r = requests.post(ENDPOINT, json={"query": query}, headers=HEADERS, timeout=90)
@@ -61,17 +63,39 @@ def save_html(path: str, html: str):
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
 
-# ── Fetch Doctor Socio items WITH linked doctor name ───────────────────────────
+def merge_monthly(existing: dict, fresh: dict) -> dict:
+    """
+    Merge two monthly dicts. For each YYYY-MM key, take the MAX of each field
+    (never decrease). Recalculate 'all' from scratch.
+    """
+    result = dict(existing)
+    for ym, vals in fresh.items():
+        if ym == "all":
+            continue
+        if ym not in result:
+            result[ym] = vals
+        else:
+            for k in ("total", "done", "revenue", "cancelado"):
+                result[ym][k] = max(result[ym].get(k, 0), vals.get(k, 0))
+
+    # Recalculate 'all'
+    all_agg = {"total": 0, "done": 0, "revenue": 0, "cancelado": 0}
+    for ym, v in result.items():
+        if ym != "all" and isinstance(v, dict):
+            for k in all_agg:
+                all_agg[k] += v.get(k, 0)
+    result["all"] = all_agg
+    return result
+
+# ── Fetch Doctor Socio items WITH linked doctor ───────────────────────────────
 
 def get_diario_items(board_id: int, year: int) -> list[dict]:
     """
-    Fetch all Doctor Socio items from a Diario board.
-    Returns list of {doctor_name, date, status, cost, year, month}.
-    Uses linked_items to get the doctor name per patient.
+    Fetch all items from a Diario board that have a linked doctor in Plan Doctores.
+    Returns list of dicts with doctor, date, year, month, ym, done, revenue, cancelado.
     """
     results = []
     cursor = None
-    page_num = 0
 
     while True:
         cursor_clause = f', cursor: "{cursor}"' if cursor else ""
@@ -95,27 +119,16 @@ def get_diario_items(board_id: int, year: int) -> list[dict]:
         """
         data = gql(q)
         page = data["boards"][0]["items_page"]
-        page_num += 1
 
         for item in page["items"]:
-            # Filter Doctor Socio (index 3)
-            reason_raw = next(
-                (c.get("value","") for c in item["column_values"] if c["id"] == "dup__of_reason"),
-                ""
-            )
-            try:
-                if json.loads(reason_raw or "{}").get("index") != 3:
-                    continue
-            except:
-                continue
-
-            # Get doctor name from linked_items
+            # Must have a linked doctor
             linked = item.get("linked_items", [])
             if not linked:
                 continue
+
             doctor_name = linked[0]["name"].strip().lower()
 
-            cv = parse_cv(item)
+            cv      = parse_cv(item)
             date_s  = cv.get("date", "")
             status  = cv.get("estado_1", "")
             cost_s  = cv.get("cost", "0") or "0"
@@ -128,45 +141,44 @@ def get_diario_items(board_id: int, year: int) -> list[dict]:
                 continue
 
             rev  = float(re.sub(r"[^\d.]", "", cost_s) or "0")
-            canc = rev if "cancel" in status.lower() else 0
-            done = rev if status == "Done" else 0
 
             results.append({
-                "doctor":  doctor_name,
-                "date":    item_date,
-                "year":    item_date.year,
-                "month":   item_date.month,
-                "ym":      f"{item_date.year}-{item_date.month:02d}",
-                "total":   1,
-                "done":    1 if status == "Done" else 0,
-                "revenue": done,
-                "cancelado": canc,
+                "doctor":    doctor_name,
+                "date":      item_date,
+                "year":      item_date.year,
+                "month":     item_date.month,
+                "ym":        f"{item_date.year}-{item_date.month:02d}",
+                "total":     1,
+                "done":      1 if status == "Done" else 0,
+                "revenue":   rev if status == "Done" else 0,
+                "cancelado": rev if "cancel" in status.lower() else 0,
             })
 
         cursor = page.get("cursor")
         if not cursor:
             break
 
-    print(f"    Board {board_id} ({year}): {len(results)} Doctor Socio items with doctor link")
+    print(f"    Board {board_id} ({year}): {len(results)} items with doctor link")
     return results
 
-# ── Build per-doctor aggregation ───────────────────────────────────────────────
+# ── Build per-doctor aggregation from Monday data ─────────────────────────────
 
-def build_doctor_monthly(all_items: list[dict]) -> dict:
+def build_doctor_stats(all_items: list[dict]) -> dict:
     """
     Returns {doctor_name_lower: {
         monthly: {YYYY-MM: {total,done,revenue,cancelado}},
         last_date: date
     }}
     """
-    doctors = defaultdict(lambda: {"monthly": defaultdict(
-        lambda: {"total":0,"done":0,"revenue":0,"cancelado":0}
-    ), "last_date": None})
+    doctors = defaultdict(lambda: {
+        "monthly": defaultdict(lambda: {"total":0,"done":0,"revenue":0,"cancelado":0}),
+        "last_date": None
+    })
 
     for item in all_items:
-        doc  = item["doctor"]
-        ym   = item["ym"]
-        d    = doctors[doc]
+        doc = item["doctor"]
+        ym  = item["ym"]
+        d   = doctors[doc]
         d["monthly"][ym]["total"]     += item["total"]
         d["monthly"][ym]["done"]      += item["done"]
         d["monthly"][ym]["revenue"]   += item["revenue"]
@@ -175,17 +187,12 @@ def build_doctor_monthly(all_items: list[dict]) -> dict:
         if d["last_date"] is None or item["date"] > d["last_date"]:
             d["last_date"] = item["date"]
 
-    # Convert defaultdicts to plain dicts
     return {k: {"monthly": dict(v["monthly"]), "last_date": v["last_date"]}
             for k, v in doctors.items()}
 
-# ── Update doctor rows in HTML ─────────────────────────────────────────────────
+# ── Update doctor rows: MERGE, never decrease ─────────────────────────────────
 
-def update_doctor_rows(html: str, doctor_stats: dict, today: date) -> str:
-    """
-    For each doctor row, REPLACE (not accumulate) data-monthly, data-ld2026,
-    data-myr2026, data-ld2025, data-myr2025, etc. with fresh data.
-    """
+def update_doctor_rows(html: str, doctor_stats: dict) -> str:
     updated = 0
 
     def patch_row(m):
@@ -199,70 +206,97 @@ def update_doctor_rows(html: str, doctor_stats: dict, today: date) -> str:
         if name_key not in doctor_stats:
             return row
 
-        stats = doctor_stats[name_key]
-        monthly_all = stats["monthly"]  # {YYYY-MM: {...}}
-        last_date   = stats["last_date"]
+        stats     = doctor_stats[name_key]
+        fresh_mon = stats["monthly"]   # {YYYY-MM: {...}} from Monday
+        last_date = stats["last_date"]
+        changed   = False
 
-        # Split by year
-        def year_data(yr):
-            d = {ym: v for ym, v in monthly_all.items() if ym.startswith(str(yr))}
-            if d:
-                all_agg = {"total":0,"done":0,"revenue":0,"cancelado":0}
-                for v in d.values():
-                    for k in all_agg:
-                        all_agg[k] += v.get(k,0)
-                d["all"] = all_agg
-            return d
+        # ── Merge data-monthly ──────────────────────────────────────────────
+        monthly_m = re.search(r"data-monthly='([^']+)'", row)
+        if monthly_m:
+            try:
+                existing = json.loads(monthly_m.group(1))
+            except:
+                existing = {}
+            merged = merge_monthly(existing, fresh_mon)
+            new_val = json.dumps(merged, separators=(',',':'))
+            if new_val != monthly_m.group(1):
+                row = row.replace(monthly_m.group(0),
+                                  f"data-monthly='{new_val}'")
+                changed = True
 
-        m2026 = year_data(2026)
-        m2025 = year_data(2025)
-        m2024 = year_data(2024)
-        m2023 = year_data(2023)
+        # ── Merge data-myr2026 ──────────────────────────────────────────────
+        fresh_2026 = {ym: v for ym, v in fresh_mon.items() if ym.startswith("2026")}
+        if fresh_2026:
+            myr26_m = re.search(r"data-myr2026='([^']*)'", row)
+            if myr26_m:
+                try:
+                    existing = json.loads(myr26_m.group(1) or '{}')
+                except:
+                    existing = {}
+                merged = merge_monthly(existing, fresh_2026)
+                new_val = json.dumps(merged, separators=(',',':'))
+                if new_val != myr26_m.group(1):
+                    row = row.replace(myr26_m.group(0),
+                                      f"data-myr2026='{new_val}'")
+                    changed = True
 
-        # Build data-monthly (all years combined, keyed by YYYY-MM + "all")
-        monthly_combined = {ym: v for ym, v in monthly_all.items()}
-        all_agg = {"total":0,"done":0,"revenue":0,"cancelado":0}
-        for v in monthly_all.values():
-            for k in all_agg:
-                all_agg[k] += v.get(k,0)
-        monthly_combined["all"] = all_agg
+        # ── Merge data-myr2025 ──────────────────────────────────────────────
+        fresh_2025 = {ym: v for ym, v in fresh_mon.items() if ym.startswith("2025")}
+        if fresh_2025:
+            myr25_m = re.search(r"data-myr2025='([^']*)'", row)
+            if myr25_m:
+                try:
+                    existing = json.loads(myr25_m.group(1) or '{}')
+                except:
+                    existing = {}
+                merged = merge_monthly(existing, fresh_2025)
+                new_val = json.dumps(merged, separators=(',',':'))
+                if new_val != myr25_m.group(1):
+                    row = row.replace(myr25_m.group(0),
+                                      f"data-myr2025='{new_val}'")
+                    changed = True
 
-        # Replace attributes
-        row = re.sub(r"data-myr2026='[^']*'",
-                     f"data-myr2026='{json.dumps(m2026, separators=(',',':'))}'", row)
-        row = re.sub(r"data-myr2025='[^']*'",
-                     f"data-myr2025='{json.dumps(m2025, separators=(',',':'))}'", row)
-        row = re.sub(r"data-myr2024='[^']*'",
-                     f"data-myr2024='{json.dumps(m2024, separators=(',',':'))}'", row)
-        row = re.sub(r"data-myr2023='[^']*'",
-                     f"data-myr2023='{json.dumps(m2023, separators=(',',':'))}'", row)
-        row = re.sub(r"data-monthly='[^']+'",
-                     f"data-monthly='{json.dumps(monthly_combined, separators=(',',':'))}'", row)
+        # ── Update data-ld2026 only if newer ───────────────────────────────
+        if last_date and last_date.year == 2026:
+            ld_m = re.search(r'data-ld2026="([^"]*)"', row)
+            if ld_m:
+                old = parse_date_str(ld_m.group(1))
+                if old is None or last_date > old:
+                    row = row.replace(ld_m.group(0),
+                                      f'data-ld2026="{fmt_iso(last_date)}"')
+                    changed = True
 
-        # Update last date per year
-        if last_date:
-            last_str = fmt_iso(last_date)
-            if last_date.year == 2026:
-                row = re.sub(r'data-ld2026="[^"]*"', f'data-ld2026="{last_str}"', row)
-            elif last_date.year == 2025:
-                row = re.sub(r'data-ld2025="[^"]*"', f'data-ld2025="{last_str}"', row)
+        # ── Update data-ld2025 only if newer ───────────────────────────────
+        if last_date and last_date.year == 2025:
+            ld_m = re.search(r'data-ld2025="([^"]*)"', row)
+            if ld_m:
+                old = parse_date_str(ld_m.group(1))
+                if old is None or last_date > old:
+                    row = row.replace(ld_m.group(0),
+                                      f'data-ld2025="{fmt_iso(last_date)}"')
+                    changed = True
 
-        updated += 1
+        if changed:
+            updated += 1
         return row
 
     html = re.sub(r'<tr class="doctor-row"[^>]+>', patch_row, html)
     print(f"  Doctor rows updated: {updated}")
     return html
 
-# ── Update resumen (m26DATA, r26DATA) ──────────────────────────────────────────
+# ── Update resumen (m26DATA, r26DATA) — REPLACE not accumulate ───────────────
 
-def update_resumen(html: str, items_2026: list[dict], today: date) -> str:
-    """Replace m26DATA and r26DATA with fresh counts from all 2026 Doctor Socio."""
+def update_resumen(html: str, items_2026: list[dict]) -> str:
+    """
+    Rebuild m26DATA and r26DATA from ALL 2026 items with linked doctor.
+    These are global counts so replace is fine.
+    """
     monthly_total = [0]*12
     monthly_rev   = [0]*12
 
     for item in items_2026:
-        monthly_total[item["month"] - 1] += 1
+        monthly_total[item["month"] - 1] += item["total"]
         monthly_rev[item["month"] - 1]   += item["revenue"]
 
     scripts = list(re.finditer(r'<script[^>]*>(.*?)</script>', html, re.DOTALL))
@@ -271,19 +305,23 @@ def update_resumen(html: str, items_2026: list[dict], today: date) -> str:
         m26_m = re.search(r'var m26DATA=\[([^\]]+)\]', c)
         r26_m = re.search(r'var r26DATA=\[([^\]]+)\]', c)
         if m26_m and r26_m:
+            # Take MAX of existing vs fresh (never decrease)
+            existing_m = [int(x.strip()) for x in m26_m.group(1).split(',')]
+            existing_r = [int(x.strip()) for x in r26_m.group(1).split(',')]
+            new_m = [max(existing_m[i], monthly_total[i]) for i in range(12)]
+            new_r = [max(existing_r[i], int(monthly_rev[i])) for i in range(12)]
+
             new_c = c.replace(
-                m26_m.group(0),
-                f"var m26DATA=[{', '.join(str(x) for x in monthly_total)}]"
+                m26_m.group(0), f"var m26DATA=[{', '.join(str(x) for x in new_m)}]"
             ).replace(
-                r26_m.group(0),
-                f"var r26DATA=[{', '.join(str(int(x)) for x in monthly_rev)}]"
+                r26_m.group(0), f"var r26DATA=[{', '.join(str(x) for x in new_r)}]"
             )
             html = html.replace(c, new_c, 1)
-            print(f"  Resumen: {sum(monthly_total)} total pax 2026")
+            print(f"  Resumen: {sum(new_m)} total pax 2026")
             break
     return html
 
-# ── Update timestamp ───────────────────────────────────────────────────────────
+# ── Timestamp ─────────────────────────────────────────────────────────────────
 
 def update_timestamp(html: str, today: date) -> str:
     ts = f"Actualizado {fmt(today)}"
@@ -291,7 +329,7 @@ def update_timestamp(html: str, today: date) -> str:
     print(f"  Timestamp: {ts}")
     return html
 
-# ── Add new socios ─────────────────────────────────────────────────────────────
+# ── New socios ────────────────────────────────────────────────────────────────
 
 def get_all_socios() -> list[dict]:
     items = []
@@ -306,7 +344,7 @@ def get_all_socios() -> list[dict]:
                 cursor
                 items {{
                   id name created_at
-                  column_values(ids: ["estado8","status5","fecha_Mjj4f1Wb","numeric_mm3m26jh"]) {{
+                  column_values(ids: ["estado8","status5","fecha_Mjj4f1Wb"]) {{
                     id text
                   }}
                 }}
@@ -380,7 +418,7 @@ def add_new_socios(html: str, socios: list[dict]) -> str:
     print(f"  New socios added: {added}")
     return html
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
     today = date.today()
@@ -389,34 +427,33 @@ def main():
     html = load_html(HTML_FILE)
     print(f"Loaded {HTML_FILE} ({len(html):,} chars)\n")
 
-    # Fetch all Doctor Socio items from all years
-    print("[1/3] Fetching Doctor Socio items from all Diario boards...")
+    print("[1/3] Fetching Doctor Socio items (all years)...")
     all_items = []
-    for board_id, year in [(BOARD_2023,2023),(BOARD_2024,2024),(BOARD_2025,2025),(BOARD_2026,2026)]:
-        items = get_diario_items(board_id, year)
-        all_items.extend(items)
-    print(f"  Total: {len(all_items)} items across all years\n")
+    for board_id, year in [
+        (BOARD_2023, 2023), (BOARD_2024, 2024),
+        (BOARD_2025, 2025), (BOARD_2026, 2026)
+    ]:
+        all_items.extend(get_diario_items(board_id, year))
+    print(f"  Total linked items: {len(all_items)}\n")
 
     print("[2/3] Fetching Plan Doctores (new socios)...")
     socios = get_all_socios()
     print(f"  {len(socios)} doctors in Ganados\n")
 
-    # Build per-doctor stats
-    doctor_stats = build_doctor_monthly(all_items)
-    print(f"  Doctors with data: {len(doctor_stats)}\n")
+    doctor_stats = build_doctor_stats(all_items)
+    print(f"  Doctors with linked data: {len(doctor_stats)}\n")
 
-    # Apply updates
     print("── Applying updates ──\n")
 
     print("[A] New socios...")
     html = add_new_socios(html, socios)
 
-    print("\n[B] Doctor rows (monthly data + last dates)...")
-    html = update_doctor_rows(html, doctor_stats, today)
+    print("\n[B] Doctor rows (merge, never decrease)...")
+    html = update_doctor_rows(html, doctor_stats)
 
-    print("\n[C] Resumen general...")
+    print("\n[C] Resumen general (max of existing vs fresh)...")
     items_2026 = [i for i in all_items if i["year"] == 2026]
-    html = update_resumen(html, items_2026, today)
+    html = update_resumen(html, items_2026)
 
     print("\n[D] Timestamp...")
     html = update_timestamp(html, today)
