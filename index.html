@@ -251,12 +251,12 @@
 
     <!-- Socios activos -->
     <div class="stat-card" style="display:flex;flex-direction:column;gap:6px">
-      <div class="stat-label">Socios Activos</div>
+      <div class="stat-label">Médicos Referidos</div>
       <div style="display:flex;align-items:baseline;gap:8px">
         <span class="stat-value" id="stat-activos26">60</span>
         <span style="font-size:12px;color:#64748b">en 2026</span>
       </div>
-      <div style="font-size:12px;color:#64748b" id="stat-activos-sub">64 activos en 2025 · 107 socios totales</div>
+      <div style="font-size:12px;color:#64748b" id="stat-activos-sub">Han enviado ≥1 paciente</div>
     </div>
 
     <!-- Mes más activo 2026 -->
@@ -338,11 +338,11 @@
     <table>
       <thead>
         <tr>
-          <th style="min-width:200px">Médico</th>
-          <th>Tendencia</th>
-          <th style="text-align:center">Pax</th>
-          <th style="text-align:right">Ingresos</th>
-          <th style="text-align:right">Cancelado</th>
+          <th style="min-width:200px;cursor:pointer;user-select:none" data-col="0" onclick="sortTable(0)">Médico <span class="sort-icon">⇅</span></th>
+          <th style="cursor:pointer;user-select:none" data-col="1" onclick="sortTable(1)">Cadencia <span class="sort-icon">⇅</span></th>
+          <th style="text-align:center;cursor:pointer;user-select:none" data-col="2" onclick="sortTable(2)">Pax <span class="sort-icon">⇅</span></th>
+          <th style="text-align:right;cursor:pointer;user-select:none" data-col="3" onclick="sortTable(3)">Ingresos <span class="sort-icon">⇅</span></th>
+          <th style="text-align:right;cursor:pointer;user-select:none" data-col="4" onclick="sortTable(4)">Cancelado <span class="sort-icon">⇅</span></th>
           <th style="padding:8px 10px;text-align:center;font-size:11px;color:#475569;font-weight:600;white-space:nowrap">Primer Pac.</th><th>Último Paciente</th>
           <th style="min-width:90px">Últ. Recetario</th>
           <th style="min-width:110px">Pronóstico</th>
@@ -3219,6 +3219,147 @@ new Chart(document.getElementById('chartDoctors'), {
   window.addEventListener('load', function() { setTimeout(runPatches, 100); });
   if (document.readyState === 'complete') { setTimeout(runPatches, 100); }
 })();
+</script>
+
+<script>
+// ── CADENCIA CALCULATION ─────────────────────────────────────────────────────
+(function() {
+  const TODAY = new Date('2026-06-02');
+  const MIN_PATIENTS = 10;
+
+  // Parse a YYYY-MM date string → Date (1st of month)
+  function parseMonthDate(key) {
+    // keys like "2026-01" or "01" (2026 only)
+    if (/^\d{4}-\d{2}$/.test(key)) return new Date(key + '-01');
+    if (/^\d{2}$/.test(key)) return new Date('2026-' + key + '-01');
+    return null;
+  }
+
+  // Gather all monthly data from a row into {YYYY-MM: total} map
+  function getAllMonthlyData(row) {
+    const datasets = ['data-myr2023','data-myr2024','data-myr2025','data-monthly','data-myr2026'];
+    const combined = {};
+    for (const attr of datasets) {
+      const raw = row.getAttribute(attr);
+      if (!raw) continue;
+      let obj;
+      try { obj = JSON.parse(raw); } catch(e) { continue; }
+      for (const [k, v] of Object.entries(obj)) {
+        if (k === 'all') continue;
+        const d = parseMonthDate(k);
+        if (!d) continue;
+        const key = d.toISOString().slice(0,7); // YYYY-MM
+        if (!combined[key]) combined[key] = 0;
+        // use total (not done) per the agreed criteria
+        combined[key] += (v.total || v.done || 0);
+      }
+    }
+    return combined;
+  }
+
+  // Compute cadence for a row
+  function computeCadencia(row) {
+    const monthly = getAllMonthlyData(row);
+    const activeMonths = Object.entries(monthly)
+      .filter(([,v]) => v > 0)
+      .map(([k]) => new Date(k + '-01'))
+      .sort((a,b) => a - b);
+
+    const totalPatients = Object.values(monthly).reduce((s,v) => s+v, 0);
+
+    if (totalPatients < MIN_PATIENTS || activeMonths.length < 2) {
+      return { label: 'Sin ritmo', days: null, alert: false, total: totalPatients };
+    }
+
+    const firstDate = activeMonths[0];
+    const lastDate = activeMonths[activeMonths.length - 1];
+    const spanDays = (lastDate - firstDate) / (1000*60*60*24);
+    const cadDays = Math.round(spanDays / totalPatients);
+
+    const ld2026 = row.getAttribute('data-ld2026');
+    const ld2025 = row.getAttribute('data-ld2025');
+    const lastPatientStr = ld2026 || ld2025 || '';
+    let daysSinceLast = null;
+    if (lastPatientStr && /\d{4}-\d{2}-\d{2}/.test(lastPatientStr)) {
+      const lp = new Date(lastPatientStr);
+      daysSinceLast = Math.round((TODAY - lp) / (1000*60*60*24));
+    }
+
+    const threshold = cadDays * 1.5;
+    const alert = daysSinceLast !== null && daysSinceLast > threshold;
+
+    return { label: cadDays + 'd/pax', days: cadDays, alert, daysSinceLast, total: totalPatients };
+  }
+
+  // Render cadencia cell HTML
+  function cadenciaHtml(c) {
+    if (c.total < MIN_PATIENTS) {
+      return `<span style="font-size:11px;color:#475569">⬜ Sin ritmo</span>`;
+    }
+    const color = c.alert ? '#ef4444' : '#22c55e';
+    const icon = c.alert ? '⚠️' : '✅';
+    let html = `<span style="font-size:12px;font-weight:700;color:${color}">${icon} ${c.label}</span>`;
+    if (c.daysSinceLast !== null) {
+      const subColor = c.alert ? '#f87171' : '#64748b';
+      html += `<div style="font-size:10px;color:${subColor};margin-top:2px">${c.daysSinceLast}d sin paciente</div>`;
+    }
+    return html;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('#doctorTableBody tr.doctor-row');
+    rows.forEach(row => {
+      const tds = row.querySelectorAll('td');
+      if (tds.length < 2) return;
+      const c = computeCadencia(row);
+      // Store computed value for sorting
+      row.dataset.cadDays = c.days !== null ? c.days : 9999;
+      row.dataset.cadAlert = c.alert ? '1' : '0';
+      tds[1].innerHTML = `<div style="text-align:center">${cadenciaHtml(c)}</div>`;
+    });
+  });
+})();
+
+// ── SORT TABLE ────────────────────────────────────────────────────────────────
+let _sortCol = -1, _sortAsc = true;
+function sortTable(col) {
+  const tbody = document.getElementById('doctorTableBody');
+  if (!tbody) return;
+  if (_sortCol === col) _sortAsc = !_sortAsc;
+  else { _sortCol = col; _sortAsc = true; }
+
+  const rows = Array.from(tbody.querySelectorAll('tr.doctor-row'));
+  rows.sort((a, b) => {
+    let va, vb;
+    if (col === 1) {
+      // cadencia: sort by computed days
+      va = parseFloat(a.dataset.cadDays || 9999);
+      vb = parseFloat(b.dataset.cadDays || 9999);
+    } else {
+      const tda = a.querySelectorAll('td')[col];
+      const tdb = b.querySelectorAll('td')[col];
+      va = tda ? tda.textContent.trim().replace(/[$,]/g,'') : '';
+      vb = tdb ? tdb.textContent.trim().replace(/[$,]/g,'') : '';
+      const na = parseFloat(va), nb = parseFloat(vb);
+      const aBlank = !va || va==='—' || va==='-' || isNaN(na);
+      const bBlank = !vb || vb==='—' || vb==='-' || isNaN(nb);
+      if (aBlank && bBlank) return 0;
+      if (aBlank) return 1;
+      if (bBlank) return -1;
+      if (!isNaN(na) && !isNaN(nb)) { va = na; vb = nb; }
+    }
+    if (va < vb) return _sortAsc ? -1 : 1;
+    if (va > vb) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+
+  // Update sort icons
+  document.querySelectorAll('[data-col] .sort-icon').forEach((el, i) => {
+    const c = parseInt(el.parentElement.dataset.col);
+    el.textContent = c === col ? (_sortAsc ? '↑' : '↓') : '⇅';
+  });
+}
 </script>
 </body>
 </html>
