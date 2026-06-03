@@ -1,49 +1,36 @@
-name: 📊 Dashboard Semanal Labbox
-
+name: Update Dashboard Daily
+ 
 on:
-  # Corre cada lunes a las 8am hora Ciudad de México (UTC-6 = 14:00 UTC)
   schedule:
-    - cron: '0 14 * * 1'
-
-  # También permite correrlo manualmente desde GitHub
-  workflow_dispatch:
-    inputs:
-      force_week:
-        description: 'Semana a procesar (opcional, ej: 2026-05-18 para lunes de esa semana)'
-        required: false
-        default: ''
-
+    # Runs every day at 7:00 AM Mexico City time (UTC-6 = 13:00 UTC)
+    - cron: '0 13 * * *'
+  workflow_dispatch:  # allow manual trigger from GitHub UI
+ 
 jobs:
-  update-dashboard:
+  update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # necesario para hacer commit del HTML actualizado
-
+ 
     steps:
-      - name: 📥 Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🐍 Setup Python
+ 
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: 📦 Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: 🔄 Run dashboard update
+ 
+      - name: Install dependencies
+        run: pip install requests
+ 
+      - name: Run dashboard updater
         env:
           MONDAY_API_KEY: ${{ secrets.MONDAY_API_KEY }}
-          FORCE_WEEK: ${{ github.event.inputs.force_week }}
         run: python update_dashboard.py
-
-      - name: 📝 Commit & push if changed
+ 
+      - name: Commit and push if changed
         run: |
-          git config --global user.name  "Dashboard Bot"
-          git config --global user.email "bot@labbox.mx"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          # Solo hace commit si hubo cambios
-          git diff --staged --quiet || git commit -m "📊 Actualización semanal $(date '+%Y-%m-%d')"
+          git diff --cached --quiet || git commit -m "Dashboard update $(date +'%Y-%m-%d')"
           git push
