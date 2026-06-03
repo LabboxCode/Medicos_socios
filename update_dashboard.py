@@ -418,6 +418,61 @@ def add_new_socios(html: str, socios: list[dict]) -> str:
     print(f"  New socios added: {added}")
     return html
 
+
+# ── Update visible td[6] Último Paciente to match data-ld2026 ─────────────────
+
+def update_td_last_dates(html: str) -> str:
+    """
+    After data-ld2026 is updated in the <tr> tag, also update the visible
+    td[6] text content so it matches (avoids stale static HTML showing old date).
+    """
+    updated = 0
+
+    def patch(m):
+        nonlocal updated
+        row_tag  = m.group(1)
+        row_body = m.group(2)
+
+        ld_m = re.search(r'data-ld2026="([^"]+)"', row_tag)
+        if not ld_m or not ld_m.group(1):
+            return m.group(0)
+
+        try:
+            d = date.fromisoformat(ld_m.group(1)[:10])
+            new_fmt = fmt(d)
+        except:
+            return m.group(0)
+
+        tds = list(re.finditer(r'<td[^>]*>.*?</td>', row_body, re.DOTALL))
+        if len(tds) < 7:
+            return m.group(0)
+
+        td6 = tds[6]
+        old_td = td6.group(0)
+        current = re.sub(r'<[^>]+>', '', old_td).strip()
+        if current == new_fmt:
+            return m.group(0)
+
+        # Replace date pattern inside the td
+        new_td = re.sub(r'\d{2}/[A-Z][a-z]{2}/\d{2}', new_fmt, old_td)
+        if new_td == old_td:
+            new_td = re.sub(
+                r'(<span[^>]*>)[^<]*(</span>)',
+                lambda x: x.group(1) + new_fmt + x.group(2),
+                old_td
+            )
+
+        new_body = row_body[:td6.start()] + new_td + row_body[td6.end():]
+        updated += 1
+        return row_tag + new_body + '</tr>'
+
+    html = re.sub(
+        r'(<tr class="doctor-row"[^>]+>)(.*?)</tr>',
+        patch, html, flags=re.DOTALL
+    )
+    print(f"  Visible last-date cells updated: {updated}")
+    return html
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
