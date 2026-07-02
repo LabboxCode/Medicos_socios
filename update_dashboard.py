@@ -329,20 +329,22 @@ def update_resumen(html: str, items_2026: list[dict]) -> str:
 
 def update_timestamp(html: str, today: date) -> str:
     """
-    Robust against multiple legacy timestamp formats found in the HTML:
-    - 'Actualizado DD/Mmm/YY'        (old short format)
-    - 'Actualizado DD/MM/YYYY HH:MM' (long numeric format with optional time)
-    Always rewrites to the short format going forward.
+    Handles ALL known timestamp formats in the HTML:
+    - 'Actualizado DD/Mmm/YY'          (short, no colon)
+    - 'Actualizado: DD/MM/YYYY HH:MM'  (long, with colon and 24h time)
+    - 'Actualizado: DD/MM/YYYY'        (long, with colon, no time)
+    Always rewrites to short format going forward.
     """
-    ts = f"Actualizado {fmt(today)}"
-    # Old short format: Actualizado 16/Jun/26
-    html, n1 = re.subn(r'Actualizado \d{1,2}/[A-Za-z]{3}/\d{2}\b', ts, html)
-    # Long numeric format: Actualizado 15/04/2026 22:38 (with or without time)
-    html, n2 = re.subn(r'Actualizado \d{1,2}/\d{1,2}/\d{4}(\s+\d{1,2}:\d{2})?', ts, html)
-    total = n1 + n2
-    if total == 0:
-        print(f"  ⚠️  WARNING: no timestamp pattern matched — could not update 'Actualizado' text")
-    print(f"  Timestamp: {ts} ({total} replacement(s))")
+    ts_no_colon = f"Actualizado {fmt(today)}"
+    ts_with_colon = f"Actualizado: {fmt(today)}"
+    # Match with optional colon, numeric or alpha month, 2 or 4 digit year, optional time
+    html, n = re.subn(
+        r'Actualizado:?\s*\d{1,2}/[A-Za-z0-9]{2,3}/\d{2,4}(?:\s+\d{1,2}:\d{2})?',
+        ts_no_colon, html
+    )
+    if n == 0:
+        print(f"  ⚠️  WARNING: no timestamp pattern matched")
+    print(f"  Timestamp: {ts_no_colon} ({n} replacement(s))")
     return html
 
 # ── New socios ────────────────────────────────────────────────────────────────
