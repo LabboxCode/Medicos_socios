@@ -328,12 +328,67 @@ def update_resumen(html: str, items_2026: list[dict]) -> str:
 # ── Timestamp ─────────────────────────────────────────────────────────────────
 
 def update_timestamp(html: str, today: date) -> str:
+    """
+    Robust against multiple legacy timestamp formats found in the HTML:
+    - 'Actualizado DD/Mmm/YY'        (old short format)
+    - 'Actualizado DD/MM/YYYY HH:MM' (long numeric format with optional time)
+    Always rewrites to the short format going forward.
+    """
     ts = f"Actualizado {fmt(today)}"
-    html = re.sub(r'Actualizado \d{2}/[A-Z][a-z]{2}/\d{2}', ts, html)
-    print(f"  Timestamp: {ts}")
+    # Old short format: Actualizado 16/Jun/26
+    html, n1 = re.subn(r'Actualizado \d{1,2}/[A-Za-z]{3}/\d{2}\b', ts, html)
+    # Long numeric format: Actualizado 15/04/2026 22:38 (with or without time)
+    html, n2 = re.subn(r'Actualizado \d{1,2}/\d{1,2}/\d{4}(\s+\d{1,2}:\d{2})?', ts, html)
+    total = n1 + n2
+    if total == 0:
+        print(f"  ⚠️  WARNING: no timestamp pattern matched — could not update 'Actualizado' text")
+    print(f"  Timestamp: {ts} ({total} replacement(s))")
     return html
 
 # ── New socios ────────────────────────────────────────────────────────────────
+
+def update_doctor_reflejo(html: str, socios: list[dict]) -> str:
+    """
+    Sync data-reflejo on EXISTING doctor rows from Plan Doctores' estado8 column.
+    Without this, the 'Filtrar por Reflejo' dropdown only reflects whatever
+    source was set at row-creation time and never updates — causing doctors
+    who should appear under a given referrer (e.g. Dr. Daniel del Aguila)
+    to silently disappear from that filter view.
+    """
+    reflejo_map = {}
+    for item in socios:
+        cv = parse_cv(item)
+        source = (cv.get("estado8") or "").strip()
+        if not source:
+            continue
+        reflejo_map[normalize_name(item["name"])] = source
+
+    updated = 0
+
+    def patch(m):
+        nonlocal updated
+        tag = m.group(0)
+        nm = re.search(r'data-name="([^"]+)"', tag)
+        if not nm:
+            return tag
+        key = normalize_name(nm.group(1))
+        new_ref = reflejo_map.get(key)
+        if not new_ref:
+            return tag
+
+        ref_m = re.search(r'data-reflejo="([^"]*)"', tag)
+        if ref_m:
+            if ref_m.group(1) != new_ref:
+                tag = tag[:ref_m.start()] + f'data-reflejo="{new_ref}"' + tag[ref_m.end():]
+                updated += 1
+        else:
+            tag = tag[:-1].rstrip() + f' data-reflejo="{new_ref}">'
+            updated += 1
+        return tag
+
+    html = re.sub(r'<tr class="doctor-row"[^>]+>', patch, html)
+    print(f"  data-reflejo synced: {updated} row(s)")
+    return html
 
 def get_all_socios() -> list[dict]:
     items = []
@@ -507,8 +562,14 @@ def main():
     print("[A] New socios...")
     html = add_new_socios(html, socios)
 
+    print("\n[A2] Syncing data-reflejo from Plan Doctores...")
+    html = update_doctor_reflejo(html, socios)
+
     print("\n[B] Doctor rows (merge, never decrease)...")
     html = update_doctor_rows(html, doctor_stats)
+
+    print("\n[B2] Syncing visible last-patient date cells...")
+    html = update_td_last_dates(html)
 
     print("\n[C] Resumen general (max of existing vs fresh)...")
     items_2026 = [i for i in all_items if i["year"] == 2026]
